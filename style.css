@@ -43,7 +43,7 @@ a {
   border: 1px solid #00f;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 .menu a {
   border-right: 1px solid #00f;
@@ -61,4 +61,53 @@ a {
 .menu a.active {
   background-color: #00f;
   color: #fff;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.section-header .btn {
+  flex: 1 1 45%;
+  font-weight: bold;
+  font-size: 0.75em;
+  line-height: 1.5;
+}
+.section-header .btn:first-of-type {
+  margin-right: 5%;
+}
+.btn {
+  border: none;
+  box-shadow: 1px 2px 2px #000;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.75em 1em;
+}
+.btn:hover {
+  text-shadow: 0 0 1px #fff;
+}
+.btn:active {
+  box-shadow: 1px 2px 4px #222 inset, -1px -2px 4px #222 inset;
+}
+.btn.delete-completed,
+.btn.delete-task {
+  background-color: #aa1b1b;
+}
+.btn.delete-completed:hover,
+.btn.delete-task:hover {
+  background-color: #8c1414;
+}
+.btn.delete-completed:active,
+.btn.delete-task:active {
+  background-color: #b61a1a;
+}
+.btn.add-task {
+  background-color: #0e7d4e;
+}
+.btn.add-task:hover {
+  background-color: #135f3e;
+}
+.btn.add-task:active {
+  background-color: #1f865a;
 }
