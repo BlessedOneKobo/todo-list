@@ -1,3 +1,4 @@
+/* General */
 body {
   font-family: sans-serif;
   font-size: 16px;
@@ -27,18 +28,38 @@ a {
   text-decoration: none;
 }
 
+.btn {
+  border: none;
+  box-shadow: 1px 2px 2px #000;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5em 1em;
+}
+.btn:hover {
+  text-shadow: 0 0 1px #fff;
+}
+.btn:active {
+  box-shadow: 1px 2px 4px #222 inset, -1px -2px 4px #222 inset;
+}
+/* /general */
+
+/* container */
 #container {
   margin: 1em auto;
   max-width: 90%;
 }
+/* /container */
 
+/* heading */
 .heading {
   margin-bottom: 0.5em;
 }
 .heading h1 {
   text-align: center;
 }
+/* /heading */
 
+/* menu */
 .menu {
   border: 1px solid #00f;
   display: flex;
@@ -62,7 +83,9 @@ a {
   background-color: #00f;
   color: #fff;
 }
+/* /menu */
 
+/* section-header */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -76,19 +99,6 @@ a {
 }
 .section-header .btn:first-of-type {
   margin-right: 5%;
-}
-.btn {
-  border: none;
-  box-shadow: 1px 2px 2px #000;
-  color: #fff;
-  cursor: pointer;
-  padding: 0.75em 1em;
-}
-.btn:hover {
-  text-shadow: 0 0 1px #fff;
-}
-.btn:active {
-  box-shadow: 1px 2px 4px #222 inset, -1px -2px 4px #222 inset;
 }
 .btn.delete-completed,
 .btn.delete-task {
@@ -111,3 +121,4 @@ a {
 .btn.add-task:active {
   background-color: #1f865a;
 }
+/* /section-header */
