@@ -17,11 +17,11 @@ h1 {
 }
 
 h2 {
-  font-size: 1.75em;
+  font-size: 1.25em;
 }
 
 h3 {
-  font-size: 1.25em;
+  font-size: 1.125em;
 }
 
 a {
@@ -40,6 +40,14 @@ a {
 }
 .btn:active {
   box-shadow: 1px 2px 4px #222 inset, -1px -2px 4px #222 inset;
+}
+
+.hidden {
+  display: none;
+}
+
+.line-through-text {
+  text-decoration: line-through;
 }
 /* /general */
 
@@ -89,7 +97,7 @@ a {
 .section-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 .section-header .btn {
   flex: 1 1 45%;
@@ -122,3 +130,42 @@ a {
   background-color: #1f865a;
 }
 /* /section-header */
+
+.task-card {
+  background-color: #e8e8e8;
+  border: 1px solid #8e8e8e;
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+}
+
+.task-card.completed > * {
+  color: #999;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 1em 1em 0.5em;
+}
+.task-card-header .heading-group {
+  display: flex;
+  flex: 0 0 85%;
+  align-items: center;
+}
+.task-card-header .heading-group .task-checkbox {
+  flex: 0 0 10%;
+}
+
+.task-card-toggle {
+  text-align: center;
+  flex: 0 1 4em;
+  align-self: center;
+}
+
+.task-card-body {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.task-description {
+  line-height: 1.8;
+}
