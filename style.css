@@ -193,8 +193,12 @@ a {
 .checkbox-text {
   flex: 1 0 80%;
 }
-.checkbox-item {
-  flex: 1 0 20%;
+.checkbox-item,
+.checklist-item-edit {
+  flex: 1 0 10%;
+}
+.checklist-item-edit {
+  text-align: center;
 }
 
 .task-card-footer {
