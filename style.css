@@ -169,3 +169,34 @@ a {
 .task-description {
   line-height: 1.8;
 }
+.task-details {
+  margin-top: 1em;
+}
+.checklist-item {
+  margin-top: 0.5em;
+}
+.due-date-subsection,
+.priority-subsection,
+.task-card-footer {
+  margin-top: 1em;
+  text-align: right;
+}
+.due-date-subsection {
+  font-weight: bold;
+}
+.checklist-item {
+  display: flex;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 0.75em;
+  margin-top: 0.75em;
+}
+.checkbox-text {
+  flex: 1 0 80%;
+}
+.checkbox-item {
+  flex: 1 0 20%;
+}
+
+.task-card-footer {
+  padding: 0 1em 1em 1em;
+}
