@@ -15,19 +15,62 @@
       <!-- /heading -->
 
       <nav class="menu">
-        <a class="active" href="#">Tasks</a>
         <a href="#">Projects</a>
+        <a class="active" href="#">Tasks</a>
       </nav>
       <!-- /menu -->
 
       <div class="section">
         <div class="section-header">
           <button class="btn delete-completed">Delete Completed Tasks</button>
-          <button class="btn add-task">Add Task</button>
+          <button class="btn create-task">Create Task</button>
         </div>
         <!-- /section-header -->
 
         <div class="section-body">
+          <div class="task-card create">
+            <div class="task-card-body">
+              <form id="task-card-create">
+                <div class="form-row">
+                  <input
+                    type="text"
+                    class="form-row task-name"
+                    placeholder="Task Name"
+                  />
+                </div>
+                <div class="form-row">
+                  <textarea
+                    class="form-row task-description"
+                    placeholder="Description"
+                  ></textarea>
+                </div>
+                <div class="form-row">
+                  <div class="checklist-subsection">
+                    <h3>Checklist</h3>
+                    <ul class="checklist-content">
+                      <li class="checklist-item">
+                        <span class="checkbox-text">Item 1</span>
+                        <a href="#" class="checklist-item-edit">Edit</a>
+                        <a href="#" class="checklist-item-delete">Remove</a>
+                      </li>
+                      <li class="checklist-item input">
+                        <input class="checkbox-text" type="text" />
+                        <a href="#" class="checklist-item-add">Add</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- /task-card-body -->
+
+            <div class="task-card-footer">
+              <button class="btn create-task">Create</button>
+            </div>
+            <!-- /task-card-footer -->
+          </div>
+          <!-- /task-card.create -->
+
           <div class="task-card">
             <div class="task-card-header">
               <div class="heading-group">
@@ -58,16 +101,19 @@
                       <span class="checkbox-text">Item 1</span>
                       <input class="checkbox-item" type="checkbox" />
                       <a href="#" class="checklist-item-edit">Edit</a>
+                      <a href="#" class="checklist-item-delete">Remove</a>
                     </li>
                     <li class="checklist-item">
                       <span class="checkbox-text">Item 2</span>
                       <input class="checkbox-item" type="checkbox" />
                       <a href="#" class="checklist-item-edit">Edit</a>
+                      <a href="#" class="checklist-item-delete">Remove</a>
                     </li>
                     <li class="checklist-item">
                       <span class="checkbox-text">Item 3</span>
                       <input class="checkbox-item" type="checkbox" />
                       <a href="#" class="checklist-item-edit">Edit</a>
+                      <a href="#" class="checklist-item-delete">Remove</a>
                     </li>
                   </ul>
                 </div>
@@ -127,16 +173,19 @@
                       <span class="checkbox-text">Item 1</span>
                       <input class="checkbox-item" type="checkbox" />
                       <a href="#" class="checklist-item-edit">Edit</a>
+                      <a href="#" class="checklist-item-delete">Remove</a>
                     </li>
                     <li class="checklist-item">
                       <span class="checkbox-text">Item 2</span>
                       <input class="checkbox-item" type="checkbox" />
                       <a href="#" class="checklist-item-edit">Edit</a>
+                      <a href="#" class="checklist-item-delete">Remove</a>
                     </li>
                     <li class="checklist-item">
                       <span class="checkbox-text">Item 3</span>
                       <input class="checkbox-item" type="checkbox" />
                       <a href="#" class="checklist-item-edit">Edit</a>
+                      <a href="#" class="checklist-item-delete">Remove</a>
                     </li>
                   </ul>
                 </div>

@@ -1,4 +1,7 @@
 /* General */
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: sans-serif;
   font-size: 16px;
@@ -120,13 +123,13 @@ a {
 .btn.delete-task:active {
   background-color: #b61a1a;
 }
-.btn.add-task {
+.btn.create-task {
   background-color: #0e7d4e;
 }
-.btn.add-task:hover {
+.btn.create-task:hover {
   background-color: #135f3e;
 }
-.btn.add-task:active {
+.btn.create-task:active {
   background-color: #1f865a;
 }
 /* /section-header */
@@ -186,21 +189,55 @@ a {
 }
 .checklist-item {
   display: flex;
+  font-size: 0.85em;
   border-bottom: 1px solid #aaa;
   padding-bottom: 0.75em;
   margin-top: 0.75em;
 }
+.checklist-item:last-of-type {
+  border-bottom: none;
+}
 .checkbox-text {
-  flex: 1 0 80%;
+  flex: 1 0 60%;
 }
-.checkbox-item,
-.checklist-item-edit {
+.checkbox-item {
+  flex: 1 0 2.5%;
+}
+.checklist-item-add,
+.checklist-item-edit,
+.checklist-item-delete {
   flex: 1 0 10%;
+  text-decoration: underline;
 }
-.checklist-item-edit {
-  text-align: center;
+.checklist-item-delete {
+  color: #aa1b1b;
 }
-
 .task-card-footer {
   padding: 0 1em 1em 1em;
+}
+
+/* Task add */
+.checklist-item.input .checkbox-text {
+  flex-basis: 80%;
+}
+.checklist-item.input .checklist-item-add {
+  text-align: right;
+}
+.form-row {
+  min-width: 100%;
+  margin-bottom: 1em;
+}
+#task-card-create {
+  padding-top: 1em;
+}
+#task-card-create .checkbox-text,
+#task-card-create .task-description,
+#task-card-create .task-name {
+  font-size: 0.85em;
+  padding: 0.5em;
+}
+#task-card-create .task-description {
+  min-height: 7em;
+  line-height: 1.2;
+  font-family: sans-serif;
 }
