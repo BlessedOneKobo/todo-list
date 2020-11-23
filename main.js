@@ -1,10 +1,18 @@
 'use strict';
 
-const forEach = Array.prototype.forEach;
+const arrayForEach = Array.prototype.forEach;
+const deadAnchorList = document.querySelectorAll('a[href="#"]');
 const taskCheckboxList = document.getElementsByClassName('task-checkbox');
 const toggleBtnList = document.getElementsByClassName('task-card-toggle');
 
-forEach.call(taskCheckboxList, taskCheckboxElm => {
+arrayForEach.call(deadAnchorList, anchorElm => {
+  anchorElm.addEventListener('click', ev => {
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+});
+
+arrayForEach.call(taskCheckboxList, taskCheckboxElm => {
   taskCheckboxElm.addEventListener('click', () => {
     const taskCardElm = taskCheckboxElm.parentElement.parentElement.parentElement;
     const taskNameElm = taskCheckboxElm.nextElementSibling;
@@ -14,7 +22,7 @@ forEach.call(taskCheckboxList, taskCheckboxElm => {
   });
 });
 
-forEach.call(toggleBtnList, toggleBtnElm => {
+arrayForEach.call(toggleBtnList, toggleBtnElm => {
   toggleBtnElm.addEventListener('click', event => {
     event.preventDefault();
 
