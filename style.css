@@ -193,21 +193,24 @@ a {
   border-bottom: 1px solid #aaa;
   padding-bottom: 0.75em;
   margin-top: 0.75em;
+  align-items: center;
 }
 .checklist-item:last-of-type {
   border-bottom: none;
 }
 .checkbox-text {
-  flex: 1 0 60%;
+  flex: 1 0 50%;
 }
 .checkbox-item {
-  flex: 1 0 2.5%;
+  flex: 1 0 1%;
 }
 .checklist-item-add,
 .checklist-item-edit,
 .checklist-item-delete {
-  flex: 1 0 10%;
   text-decoration: underline;
+  flex: 1 0 10%;
+  margin-left: 5%;
+  text-align: center;
 }
 .checklist-item-delete {
   color: #aa1b1b;
@@ -219,9 +222,6 @@ a {
 /* Task add */
 .checklist-item.input .checkbox-text {
   flex-basis: 80%;
-}
-.checklist-item.input .checklist-item-add {
-  text-align: right;
 }
 .form-row {
   min-width: 100%;
