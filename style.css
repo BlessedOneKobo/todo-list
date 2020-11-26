@@ -205,7 +205,6 @@ a {
   flex: 1 0 1%;
 }
 .checklist-item-add,
-.checklist-item-edit,
 .checklist-item-delete {
   text-decoration: underline;
   flex: 1 0 10%;
