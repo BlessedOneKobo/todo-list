@@ -6,6 +6,20 @@ const menuElm = document.getElementById('menu');
 const deadAnchorList = document.querySelectorAll('a[href="#"]');
 const taskCheckboxList = document.getElementsByClassName('task-checkbox');
 const toggleBtnList = document.getElementsByClassName('task-card-toggle');
+const checkboxItemList = document.getElementsByClassName('checkbox-item');
+
+arrayForEach.call(checkboxItemList, checkboxItem => {
+  checkboxItem.addEventListener('click', event => {
+    const checkListText = checkboxItem.previousElementSibling;
+
+    if (checkboxItem.checked) {
+      checkListText.classList.add('line-through-text');
+      return;
+    }
+
+    checkListText.classList.remove('line-through-text');
+  });
+});
 
 const removeActiveClass = anchorList => {
   arrayForEach.call(anchorList, anchorElm => {
