@@ -59,6 +59,17 @@ a {
   margin: 1em auto;
   max-width: 90%;
 }
+
+@media (min-width: 768px) {
+  #container {
+    max-width: 70%;
+  }
+}
+@media (min-width: 1024px) {
+  #container {
+    max-width: 50%;
+  }
+}
 /* /container */
 
 /* heading */
