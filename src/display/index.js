@@ -1,5 +1,5 @@
-import './reset.css';
-import './style.css';
+import './css/reset.css';
+import './css/style.css';
 
 import heading from './components/heading';
 import navigation from './components/navigation';
