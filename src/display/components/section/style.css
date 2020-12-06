@@ -1,0 +1,17 @@
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+.section-header.projects .btn.delete {
+  display: none;
+}
+.section-header .btn {
+  flex: 1 1 45%;
+  font-weight: bold;
+  font-size: 0.75em;
+  line-height: 1.5;
+}
+.section-header.tasks .btn:first-of-type {
+  margin-right: 5%;
+}

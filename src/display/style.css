@@ -73,39 +73,22 @@ a {
 /* /container */
 
 /* section-header */
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2em;
-}
-.section-header .btn {
-  flex: 1 1 45%;
-  font-weight: bold;
-  font-size: 0.75em;
-  line-height: 1.5;
-}
-.section-header .btn:first-of-type {
-  margin-right: 5%;
-}
-.btn.delete-completed,
-.btn.delete-task {
+.btn.delete {
   background-color: #aa1b1b;
 }
-.btn.delete-completed:hover,
-.btn.delete-task:hover {
+.btn.delete:hover {
   background-color: #8c1414;
 }
-.btn.delete-completed:active,
-.btn.delete-task:active {
+.btn.delete:active {
   background-color: #b61a1a;
 }
-.btn.create-task {
+.btn.create {
   background-color: #0e7d4e;
 }
-.btn.create-task:hover {
+.btn.create:hover {
   background-color: #135f3e;
 }
-.btn.create-task:active {
+.btn.create:active {
   background-color: #1f865a;
 }
 /* /section-header */
@@ -180,8 +163,8 @@ a {
 .checkbox-item {
   flex: 1 0 1%;
 }
-.checklist-item-add,
-.checklist-item-delete {
+.checklist-item .add,
+.checklist-item .delete {
   text-decoration: underline;
   flex: 1 0 10%;
   margin-left: 5%;

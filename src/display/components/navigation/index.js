@@ -32,6 +32,7 @@ function toggleNavLink(event) {
   }
 
   clickedLink.className = 'active';
+  emit('toggleNavigation', { selected: clickedLink.dataset.section });
 
   const prev = clickedLink.previousElementSibling;
 
@@ -45,8 +46,6 @@ function toggleNavLink(event) {
   if (next) {
     next.className = '';
   }
-
-  emit('toggleNavLink');
 }
 
 export default navigation;
