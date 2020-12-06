@@ -1,0 +1,23 @@
+#menu {
+  border: 1px solid #00f;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+#menu a {
+  border-right: 1px solid #00f;
+  flex: 1 1 50%;
+  text-align: center;
+}
+#menu a:last-of-type {
+  border-right: none;
+}
+#menu a {
+  background-color: #fff;
+  color: #00f;
+  padding: 0.25em;
+}
+#menu a.active {
+  background-color: #00f;
+  color: #fff;
+}

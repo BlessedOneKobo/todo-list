@@ -1,4 +1,6 @@
-import { emit } from '../events';
+import { emit } from '../../../events';
+
+import './style.css';
 
 const navigation = document.createElement('nav');
 navigation.setAttribute('id', 'menu');
@@ -32,12 +34,13 @@ function toggleNavLink(event) {
   clickedLink.className = 'active';
 
   const prev = clickedLink.previousElementSibling;
-  const next = clickedLink.nextElementSibling;
 
   if (prev) {
     prev.className = '';
     return;
   }
+
+  const next = clickedLink.nextElementSibling;
 
   if (next) {
     next.className = '';

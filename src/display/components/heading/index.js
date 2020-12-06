@@ -1,3 +1,5 @@
+import './style.css';
+
 const heading = document.createElement('div');
 heading.className = 'heading';
 
