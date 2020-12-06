@@ -72,14 +72,63 @@ a {
 }
 /* /container */
 
+/* heading */
+.heading {
+  margin-bottom: 0.5em;
+}
+.heading h1 {
+  text-align: center;
+}
+/* /heading */
+
+/* menu */
+#menu {
+  border: 1px solid #00f;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+#menu a {
+  border-right: 1px solid #00f;
+  flex: 1 1 50%;
+  text-align: center;
+}
+#menu a:last-of-type {
+  border-right: none;
+}
+#menu a {
+  background-color: #fff;
+  color: #00f;
+  padding: 0.25em;
+}
+#menu a.active {
+  background-color: #00f;
+  color: #fff;
+}
+/* /menu */
+
 /* section-header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+.section-header .btn {
+  flex: 1 1 45%;
+  font-weight: bold;
+  font-size: 0.75em;
+  line-height: 1.5;
+}
+.section-header .btn:first-of-type {
+  margin-right: 5%;
+}
 .btn.delete {
   background-color: #aa1b1b;
 }
-.btn.delete:hover {
+.btn.delete {
   background-color: #8c1414;
 }
-.btn.delete:active {
+.btn.delete {
   background-color: #b61a1a;
 }
 .btn.create {
@@ -169,9 +218,6 @@ a {
   flex: 1 0 10%;
   margin-left: 5%;
   text-align: center;
-}
-.checklist-item-delete {
-  color: #aa1b1b;
 }
 .task-card-footer {
   padding: 0 1em 1em 1em;
