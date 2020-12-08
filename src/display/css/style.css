@@ -163,11 +163,17 @@ a {
   flex: 0 0 85%;
   align-items: center;
 }
-.task-card-header .heading-group .task-checkbox {
+.task-card-header .heading-group .task-checkbox,
+.task-card-header .heading-group .delete {
   flex: 0 0 10%;
 }
 
-.task-card-toggle {
+.task-card-header .heading-group .delete {
+  margin-right: 3em;
+}
+
+.task-card-toggle,
+.task-card-view {
   text-align: center;
   flex: 0 1 4em;
   align-self: center;
