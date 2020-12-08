@@ -1,3 +1,5 @@
+import { emit, on } from './events';
+
 const projectList = [
   {
     name: 'General',
@@ -39,3 +41,11 @@ const projectList = [
     ],
   },
 ];
+
+emit('projectListUpdated', { projectList });
+
+on('toggleNavigation', ({ selected }) => {
+  if (selected === 'projects') {
+    emit('projectListUpdated', { projectList });
+  }
+});
