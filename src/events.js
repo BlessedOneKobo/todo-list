@@ -1,34 +1,32 @@
-const eventList = [];
+const events = {};
 
 export function on(name, handler) {
-  const idx = eventList.findIndex(et => et.name === name);
-
-  if (idx === -1) {
-    eventList.push({ name, handlerList: [handler] });
-    return;
-  }
-
-  eventList[idx].handlerList.push(handler);
+  events[name] = events[name] || [];
+  events[name].push(handler);
 }
 
 export function emit(name, ...args) {
-  const event = eventList.find(et => et.name === name);
+  const selectedEvent = events[name];
 
-  if (!event) {
+  if (!selectedEvent) {
     return;
   }
 
-  event.handlerList.forEach(handler => {
-    handler(...args);
-  });
+  selectedEvent.forEach(handler => handler(...args));
 }
 
-export function remove(name) {
-  const idx = eventList.findIndex(et => et.name === name);
+export function removeEvent(name) {
+  delete events[name];
+}
 
-  if (idx === -1) {
-    return;
+export function removeHandler(name, handler) {
+  const selectedEvent = events[name];
+
+  for (let idx = 0, len = selectedEvent.length; idx < len; idx += 1) {
+    const selectedHandler = selectedEvent[idx];
+
+    if (selectedHandler === handler) {
+      selectedEvent.slice(idx, 1);
+    }
   }
-
-  eventList.splice(idx, 1);
 }
