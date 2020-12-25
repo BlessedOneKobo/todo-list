@@ -1,4 +1,4 @@
-import { on } from '../../../../events';
+import { emit, on } from '../../../../events';
 
 import './style.css';
 

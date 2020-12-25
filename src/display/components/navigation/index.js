@@ -1,4 +1,4 @@
-import { emit } from '../../../events';
+import { emit, on } from '../../../events';
 
 import './style.css';
 
@@ -10,7 +10,7 @@ projectNavLink.textContent = 'Projects';
 projectNavLink.className = 'active';
 projectNavLink.dataset.section = 'projects';
 projectNavLink.setAttribute('href', '#');
-projectNavLink.addEventListener('click', toggleNavLink);
+projectNavLink.addEventListener('click', _toggleNavLinkClick);
 
 const taskNavLink = document.createElement('a');
 taskNavLink.textContent = 'Tasks';
@@ -19,10 +19,10 @@ taskNavLink.setAttribute('href', '#');
 
 navigation.appendChild(projectNavLink);
 navigation.appendChild(taskNavLink);
-navigation.addEventListener('click', toggleNavLink);
+navigation.addEventListener('click', _toggleNavLinkClick);
 
 // Helpers
-function toggleNavLink(event) {
+function _toggleNavLinkClick(event) {
   event.preventDefault();
 
   const clickedLink = event.target;
@@ -33,19 +33,17 @@ function toggleNavLink(event) {
 
   clickedLink.className = 'active';
   emit('toggleNavigation', { selected: clickedLink.dataset.section });
+}
 
-  const prev = clickedLink.previousElementSibling;
-
-  if (prev) {
-    prev.className = '';
+on('toggleNavigation', ({ selected }) => {
+  if (selected === 'projects') {
+    projectNavLink.className = 'active';
+    taskNavLink.className = '';
     return;
   }
 
-  const next = clickedLink.nextElementSibling;
-
-  if (next) {
-    next.className = '';
-  }
-}
+  taskNavLink.className = 'active';
+  projectNavLink.className = '';
+});
 
 export default navigation;
