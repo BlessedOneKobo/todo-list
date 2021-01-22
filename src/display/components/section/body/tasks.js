@@ -1,3 +1,32 @@
+function _handleTaskCardToggle(event) {
+  event.preventDefault();
+
+  const cardElm = this.parentElement.parentElement;
+
+  if (!cardElm) {
+    return;
+  }
+
+  const cardBodyElm = cardElm.querySelector('.task-card-body');
+  const cardFooterElm = cardElm.querySelector('.task-card-footer');
+
+  if (cardBodyElm) {
+    cardBodyElm.classList.toggle('hidden');
+  }
+
+  if (cardFooterElm) {
+    cardFooterElm.classList.toggle('hidden');
+  }
+
+  if (this.textContent === 'More') {
+    this.textContent = 'Less';
+  } else {
+    this.textContent = 'More';
+  }
+
+  console.log('_handleTaskCardToggle');
+}
+
 function _getTaskListContent(project) {
   const projectName = document.createElement('h2');
   projectName.textContent = project.name;
@@ -21,6 +50,7 @@ function _getTaskListContent(project) {
     taskCardToggle.className = 'task-card-toggle';
     taskCardToggle.setAttribute('href', '#');
     taskCardToggle.textContent = 'More';
+    taskCardToggle.addEventListener('click', _handleTaskCardToggle);
     const taskCardHeader = document.createElement('div');
     taskCardHeader.className = 'task-card-header';
     [headingGroup, taskCardToggle].forEach(child => {
