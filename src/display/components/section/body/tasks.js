@@ -1,3 +1,18 @@
+function _handleTaskCheckboxClick() {
+    const taskCardElm = this.parentElement.parentElement.parentElement;
+    const taskNameElm = this.nextElementSibling;
+
+    taskCardElm.classList.toggle('completed');
+    taskNameElm.classList.toggle('line-through-text');
+
+    const isCompleted = taskCardElm.classList.contains('completed');
+    const checkboxItemList = taskCardElm.querySelectorAll('.checkbox-item');
+
+    Array.prototype.forEach.call(checkboxItemList, checkboxItem => {
+      checkboxItem.disabled = isCompleted;
+    })
+}
+
 function _handleTaskCardToggle(event) {
   event.preventDefault();
 
@@ -37,6 +52,7 @@ function _getTaskListContent(project) {
     taskCheckbox.className = 'task-checkbox';
     taskCheckbox.setAttribute('type', 'checkbox');
     taskCheckbox.setAttribute('name', 'done');
+    taskCheckbox.addEventListener('click', _handleTaskCheckboxClick);
     const taskName = document.createElement('h2');
     taskName.className = 'task-name';
     taskName.textContent = item.title;

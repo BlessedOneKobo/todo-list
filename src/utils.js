@@ -46,15 +46,15 @@ arrayForEach.call(deadAnchorList, anchorElm => {
   });
 });
 
-arrayForEach.call(taskCheckboxList, taskCheckboxElm => {
-  taskCheckboxElm.addEventListener('click', () => {
-    const taskCardElm = taskCheckboxElm.parentElement.parentElement.parentElement;
-    const taskNameElm = taskCheckboxElm.nextElementSibling;
+// arrayForEach.call(taskCheckboxList, taskCheckboxElm => {
+//   taskCheckboxElm.addEventListener('click', () => {
+//     const taskCardElm = taskCheckboxElm.parentElement.parentElement.parentElement;
+//     const taskNameElm = taskCheckboxElm.nextElementSibling;
 
-    taskCardElm.classList.toggle('completed');
-    taskNameElm.classList.toggle('line-through-text');
-  });
-});
+//     taskCardElm.classList.toggle('completed');
+//     taskNameElm.classList.toggle('line-through-text');
+//   });
+// });
 
 arrayForEach.call(toggleBtnList, toggleBtnElm => {
   toggleBtnElm.addEventListener('click', event => {
