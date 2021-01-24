@@ -49,15 +49,19 @@ function _getTaskListContent(projectName, taskList) {
   taskListHeading.textContent = projectName;
   taskListHeading.className = 'project-name';
 
-  const taskListContent = taskList.map((item, taskIdx) => {
-    const { title, description, dueDate, priority, checklist } = item;
+  const taskListContent = taskList.map((taskItem, taskIdx) => {
+    const { title, description, dueDate, priority, checklist, done } = taskItem;
 
     // Task Header
     const taskCheckbox = document.createElement('input');
     taskCheckbox.className = 'task-checkbox';
+    taskCheckbox.checked = done;
     taskCheckbox.setAttribute('type', 'checkbox');
     taskCheckbox.setAttribute('name', 'done');
     taskCheckbox.addEventListener('click', _handleTaskCheckboxClick);
+    taskCheckbox.addEventListener('click', () => {
+      emit('toggleTaskDoneStatus', { taskIdx });
+    })
     const taskName = document.createElement('h2');
     taskName.className = 'task-name';
     taskName.textContent = title;
@@ -94,6 +98,7 @@ function _getTaskListContent(projectName, taskList) {
 
       const checkboxItem = document.createElement('input');
       checkboxItem.className = 'checkbox-item';
+      checkboxItem.disabled = done;
       checkboxItem.setAttribute('type', 'checkbox');
 
       const deleteBtn = document.createElement('a');
@@ -170,6 +175,15 @@ function _getTaskListContent(projectName, taskList) {
     [taskCardHeader, taskCardBody, taskCardFooter].forEach(child => {
       taskCard.appendChild(child);
     });
+
+    if (done) {
+      taskCard.classList.add('completed');
+      taskName.classList.add('line-through-text');
+    } else {
+      // This might be redundant
+      taskCard.classList.remove('completed');
+      taskName.classList.remove('line-through-text');
+    }
 
     return taskCard;
   });

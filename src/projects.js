@@ -22,7 +22,7 @@ const projectList = [
           { text: 'Item 2', done: false },
           { text: 'Item 3', done: false },
         ],
-        done: false
+        done: true,
       },
       {
         title: 'Something Else',
@@ -66,7 +66,11 @@ on('projectSelected', ({ idx }) => {
 });
 
 on('deleteTask', ({ idx }) => {
-  console.log({ _selectedProject });
   _selectedProject.items.splice(idx, 1);
   emit('taskListUpdated', _getTaskListInfo());
+})
+
+on('toggleTaskDoneStatus', ({ taskIdx }) => {
+  const task = _selectedProject.items[taskIdx];
+  task.done = !task.done;
 })
