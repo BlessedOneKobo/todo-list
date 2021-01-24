@@ -45,6 +45,7 @@ function _handleTaskCardToggle(event) {
 function _getTaskListContent(project) {
   const projectName = document.createElement('h2');
   projectName.textContent = project.name;
+  projectName.className = 'project-name';
 
   const taskListContent = project.items.map(item => {
     // Task Header

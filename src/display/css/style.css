@@ -251,3 +251,12 @@ a {
   line-height: 1.2;
   font-family: sans-serif;
 }
+
+.project-name {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.75em;
+  margin: 1em auto 0.75em auto;
+  font-size: 1.75em;
+  color: #555;
+}
