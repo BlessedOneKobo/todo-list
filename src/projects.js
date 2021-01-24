@@ -22,6 +22,7 @@ const projectList = [
           { text: 'Item 2', done: false },
           { text: 'Item 3', done: false },
         ],
+        done: false
       },
       {
         title: 'Something Else',
@@ -38,10 +39,16 @@ const projectList = [
           { text: 'Item 1', done: false },
           { text: 'Item 2', done: false },
         ],
+        done: false,
       },
     ],
   },
 ];
+
+function _getTaskListInfo() {
+  const { name: projectName, items: taskList } = _selectedProject;
+  return { projectName, taskList };
+}
 
 emit('projectListUpdated', { projectList });
 
@@ -49,10 +56,17 @@ on('toggleNavigation', ({ selected }) => {
   if (selected === 'projects') {
     emit('projectListUpdated', { projectList });
   } else if (selected === 'tasks') {
-    emit('taskListUpdated', { selectedProject: _selectedProject });
+    const { name: projectName, items: taskList } = _selectedProject;
+    emit('taskListUpdated', _getTaskListInfo());
   }
 });
 
 on('projectSelected', ({ idx }) => {
   _selectedProject = projectList[idx];
 });
+
+on('deleteTask', ({ idx }) => {
+  console.log({ _selectedProject });
+  _selectedProject.items.splice(idx, 1);
+  emit('taskListUpdated', _getTaskListInfo());
+})

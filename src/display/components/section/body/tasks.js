@@ -1,3 +1,5 @@
+import { emit } from '../../../../events';
+
 function _handleTaskCheckboxClick() {
     const taskCardElm = this.parentElement.parentElement.parentElement;
     const taskNameElm = this.nextElementSibling;
@@ -42,12 +44,14 @@ function _handleTaskCardToggle(event) {
   console.log('_handleTaskCardToggle');
 }
 
-function _getTaskListContent(project) {
-  const projectName = document.createElement('h2');
-  projectName.textContent = project.name;
-  projectName.className = 'project-name';
+function _getTaskListContent(projectName, taskList) {
+  const taskListHeading = document.createElement('h2');
+  taskListHeading.textContent = projectName;
+  taskListHeading.className = 'project-name';
 
-  const taskListContent = project.items.map(item => {
+  const taskListContent = taskList.map((item, taskIdx) => {
+    const { title, description, dueDate, priority, checklist } = item;
+
     // Task Header
     const taskCheckbox = document.createElement('input');
     taskCheckbox.className = 'task-checkbox';
@@ -56,7 +60,7 @@ function _getTaskListContent(project) {
     taskCheckbox.addEventListener('click', _handleTaskCheckboxClick);
     const taskName = document.createElement('h2');
     taskName.className = 'task-name';
-    taskName.textContent = item.title;
+    taskName.textContent = title;
 
     const headingGroup = document.createElement('div');
     headingGroup.className = 'heading-group';
@@ -77,10 +81,10 @@ function _getTaskListContent(project) {
     // Task Description
     const taskDescription = document.createElement('p');
     taskDescription.className = 'task-description';
-    taskDescription.textContent = item.description;
+    taskDescription.textContent = description;
 
     // Checklist
-    const checklistElementArray = item.checklist.map(checkItem => {
+    const checklistElementArray = checklist.map(checkItem => {
       const checklistItem = document.createElement('li');
       checklistItem.className = 'checklist-item';
 
@@ -118,7 +122,7 @@ function _getTaskListContent(project) {
     // Due date
     const dueDateContent = document.createElement('p');
     dueDateContent.className = 'due-date-content';
-    dueDateContent.textContent = item.dueDate;
+    dueDateContent.textContent = dueDate;
     const dueDateSubsection = document.createElement('div');
     dueDateSubsection.className = 'due-date-subsection';
     dueDateSubsection.appendChild(dueDateContent);
@@ -128,7 +132,7 @@ function _getTaskListContent(project) {
     priorityColor.className = 'priority-color';
     const priorityText = document.createElement('span');
     priorityText.className = 'priority-text';
-    priorityText.textContent = item.priority;
+    priorityText.textContent = priority;
     const priorityContent = document.createElement('p');
     [priorityColor, priorityText].forEach(child => {
       priorityContent.appendChild(child);
@@ -153,12 +157,16 @@ function _getTaskListContent(project) {
     const taskDeleteBtn = document.createElement('button');
     taskDeleteBtn.className = 'btn delete';
     taskDeleteBtn.textContent = 'Delete';
+    taskDeleteBtn.addEventListener('click', () => {
+      emit('deleteTask', { idx: taskIdx })
+    });
     const taskCardFooter = document.createElement('div');
     taskCardFooter.className = 'task-card-footer hidden';
     taskCardFooter.appendChild(taskDeleteBtn);
 
     const taskCard = document.createElement('div');
     taskCard.className = 'task-card';
+    taskCard.dataset.cardIndex = taskIdx;
     [taskCardHeader, taskCardBody, taskCardFooter].forEach(child => {
       taskCard.appendChild(child);
     });
@@ -166,7 +174,7 @@ function _getTaskListContent(project) {
     return taskCard;
   });
 
-  return [projectName, ...taskListContent];
+  return [taskListHeading, ...taskListContent];
 }
 
 function _getEmptyContent() {
@@ -176,11 +184,9 @@ function _getEmptyContent() {
   return emptyMsg;
 }
 
-export function createTaskListContent({ selectedProject }) {
-  console.log({ selectedProject });
-
-  if (selectedProject) {
-    return _getTaskListContent(selectedProject);
+export function createTaskListContent({ projectName, taskList }) {
+  if (projectName) {
+    return _getTaskListContent(projectName, taskList);
   }
 
   return _getEmptyContent();
