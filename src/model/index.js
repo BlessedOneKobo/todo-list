@@ -1,4 +1,4 @@
-import { emit, on } from './events';
+import { emit, on } from '../events';
 
 let _selectedProject = null;
 
