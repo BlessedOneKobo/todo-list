@@ -1,6 +1,7 @@
 import { emit, on } from '../events';
 
 let _selectedProject = null;
+let _selectedIdx = -1;
 
 const projectList = [
   {
@@ -45,9 +46,14 @@ const projectList = [
   },
 ];
 
-function _getTaskListInfo() {
+function _updateTaskListDisplay() {
+  if (!_selectedProject) {
+    emit('taskListUpdated');
+    return;
+  }
+
   const { name: projectName, items: taskList } = _selectedProject;
-  return { projectName, taskList };
+  emit('taskListUpdated', { projectName, taskList });
 }
 
 emit('projectListUpdated', { projectList });
@@ -56,21 +62,26 @@ on('toggleNavigation', ({ selected }) => {
   if (selected === 'projects') {
     emit('projectListUpdated', { projectList });
   } else if (selected === 'tasks') {
-    const { name: projectName, items: taskList } = _selectedProject;
-    emit('taskListUpdated', _getTaskListInfo());
+    _updateTaskListDisplay();
   }
 });
 
 on('projectSelected', ({ idx }) => {
   _selectedProject = projectList[idx];
+  _selectedIdx = idx;
 });
 
 on('deleteTask', ({ idx }) => {
   _selectedProject.items.splice(idx, 1);
-  emit('taskListUpdated', _getTaskListInfo());
+  _updateTaskListDisplay();
+});
+
+on('deleteCompletedTasks', () => {
+  _selectedProject.items = _selectedProject.items.filter(x => !x.done);
+  _updateTaskListDisplay();
 })
 
 on('toggleTaskDoneStatus', ({ taskIdx }) => {
   const task = _selectedProject.items[taskIdx];
   task.done = !task.done;
-})
+});

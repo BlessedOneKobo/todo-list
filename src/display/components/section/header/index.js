@@ -8,6 +8,7 @@ sectionHeader.className = 'section-header projects';
 const deleteBtn = document.createElement('button');
 deleteBtn.className = 'btn delete';
 deleteBtn.textContent = 'Delete Completed Tasks';
+deleteBtn.addEventListener('click', () => emit('deleteCompletedTasks'));
 
 const createBtn = document.createElement('button');
 createBtn.className = 'btn create';

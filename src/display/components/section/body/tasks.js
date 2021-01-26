@@ -198,10 +198,16 @@ function _getEmptyContent() {
   return emptyMsg;
 }
 
-export function createTaskListContent({ projectName, taskList }) {
-  if (projectName) {
-    return _getTaskListContent(projectName, taskList);
+export function createTaskListContent(details) {
+  if (!details) {
+    return _getEmptyContent();
   }
 
-  return _getEmptyContent();
+  const { projectName, taskList } = details;
+
+  if (!projectName) {
+    return _getEmptyContent();
+  }
+
+  return _getTaskListContent(projectName, taskList);
 }
