@@ -13,6 +13,7 @@ deleteBtn.addEventListener('click', () => emit('deleteCompletedTasks'));
 const createBtn = document.createElement('button');
 createBtn.className = 'btn create';
 createBtn.textContent = 'Create Project';
+createBtn.addEventListener('click', _initProjectCreate);
 
 sectionHeader.appendChild(deleteBtn);
 sectionHeader.appendChild(createBtn);
@@ -20,7 +21,17 @@ sectionHeader.appendChild(createBtn);
 on('toggleNavigation', ({ selected }) => {
   sectionHeader.className = `section-header ${selected}`;
 
-  createBtn.textContent = selected === 'projects' ? 'Create Project' : 'Create Task';
+  if (selected === 'projects') {
+    createBtn.addEventListener('click', _initProjectCreate);
+    createBtn.textContent = 'Create Project';
+  } else {
+    createBtn.removeEventListener('click', _initProjectCreate);
+    createBtn.textContent = 'Create Task';
+  }
 });
+
+function _initProjectCreate() {
+  emit('openCreateProjectModal');
+}
 
 export default sectionHeader;

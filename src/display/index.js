@@ -4,6 +4,7 @@ import './css/style.css';
 import heading from './components/heading';
 import navigation from './components/navigation';
 import section from './components/section';
+import modal from './components/modal';
 
 const container = document.createElement('div');
 
@@ -14,3 +15,4 @@ container.setAttribute('id', 'container');
 });
 
 document.body.appendChild(container);
+document.body.appendChild(modal);

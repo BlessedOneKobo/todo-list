@@ -77,6 +77,10 @@ on('deleteTask', ({ idx }) => {
 });
 
 on('deleteCompletedTasks', () => {
+  if (!_selectedProject) {
+    return;
+  }
+
   _selectedProject.items = _selectedProject.items.filter(x => !x.done);
   _updateTaskListDisplay();
 })
@@ -84,4 +88,9 @@ on('deleteCompletedTasks', () => {
 on('toggleTaskDoneStatus', ({ taskIdx }) => {
   const task = _selectedProject.items[taskIdx];
   task.done = !task.done;
+});
+
+on('createProject', ({ projectName }) => {
+  projectList.push({ name: projectName, items: [] });
+  emit('projectListUpdated', { projectList });
 });
