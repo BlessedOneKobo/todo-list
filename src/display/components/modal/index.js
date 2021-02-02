@@ -49,6 +49,11 @@ function _onSubmitCreateProject(event) {
 function _getCreateProjectModal() {
   const frag = document.createDocumentFragment();
 
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '&times;';
+  closeBtn.className = 'btn delete close';
+  closeBtn.addEventListener('click', _hideModal);
+
   const modalHeading = document.createElement('h2');
   modalHeading.textContent = 'Create Project';
   modalHeading.className = 'heading';
@@ -71,6 +76,7 @@ function _getCreateProjectModal() {
   form.appendChild(projectNameInputElm);
   form.appendChild(submitBtn);
 
+  frag.appendChild(closeBtn);
   frag.appendChild(modalHeading);
   frag.appendChild(form);
 

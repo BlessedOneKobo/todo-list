@@ -46,3 +46,8 @@
 .modal-content .btn.create {
   text-align: center;
 }
+
+.btn.close {
+  display: block;
+  margin-left: auto;
+}
