@@ -18,7 +18,7 @@
 .modal-content {
   min-width: 50%;
   max-width: 75%;
-  min-height: 50%;
+  height: 70%;
   position: absolute;
   background-color: #fff;
   top: 25%;
@@ -27,6 +27,7 @@
   margin: 0 auto;
   text-align: center;
   padding: 1em;
+  overflow-y: scroll;
 }
 
 .modal-content .heading {
@@ -45,6 +46,21 @@
 }
 .modal-content .btn.create {
   text-align: center;
+  margin-bottom: 1.25em;
+}
+
+.modal-content .form-input-heading {
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+.modal-content .checklist-display {
+  padding-left: 1.5em;
+  list-style-type: circle;
+  margin-bottom: 0.5em;
+}
+.modal-content .checklist-display li {
+  text-align: left;
 }
 
 .btn.close {

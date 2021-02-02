@@ -27,11 +27,16 @@ on('toggleNavigation', ({ selected }) => {
   } else {
     createBtn.removeEventListener('click', _initProjectCreate);
     createBtn.textContent = 'Create Task';
+    createBtn.addEventListener('click', _initTaskCreate);
   }
 });
 
 function _initProjectCreate() {
   emit('openCreateProjectModal');
+}
+
+function _initTaskCreate() {
+  emit('openCreateTaskModal');
 }
 
 export default sectionHeader;
