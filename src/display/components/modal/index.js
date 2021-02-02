@@ -18,6 +18,14 @@ modal.addEventListener('click', (event) => {
   }
 });
 
+const _createTaskFormData = {
+  name: '',
+  description: '',
+  checklist: [],
+  dueDate: '',
+  priority: 'normal',
+};
+
 on('openCreateProjectModal', () => {
   _clearModalContent();
   _modalContent.appendChild(_getCreateProjectModal());
@@ -115,6 +123,8 @@ function _addChecklistItem(event) {
 
   firstElementChild.value = '';
   _updateChecklistDisplay(value);
+  _createTaskFormData.checklist.push(value);
+  console.table(_createTaskFormData);
 }
 
 function _createFormInputHeading({ level = 'h4', textContent }) {
@@ -134,6 +144,13 @@ function _createSubmitBtn(btnText) {
   return submitBtn;
 }
 
+function _onCreateTaskFormInput(formDataPropName) {
+  return ({ target: { value }}) => {
+    _createTaskFormData[formDataPropName] = value;
+    console.table(_createTaskFormData);
+  }
+}
+
 function _getCreateTaskModal() {
   const { frag, modalHeading, form } = _getBaseModal();
 
@@ -144,11 +161,13 @@ function _getCreateTaskModal() {
   taskNameInputElm.setAttribute('type', 'text');
   taskNameInputElm.setAttribute('placeholder', 'Task Name');
   taskNameInputElm.className = 'form-input';
+  taskNameInputElm.addEventListener('input', _onCreateTaskFormInput('name'));
 
   const taskDescriptionInputElm = document.createElement('textarea');
   taskDescriptionInputElm.setAttribute('placeholder', 'Description');
   taskDescriptionInputElm.setAttribute('rows', '8');
   taskDescriptionInputElm.className = 'form-input';
+  taskDescriptionInputElm.addEventListener('input', _onCreateTaskFormInput('description'));
 
   const checklistDisplayHeading = _createFormInputHeading({ textContent: 'Checklist' });
 
@@ -167,6 +186,8 @@ function _getCreateTaskModal() {
   const dueDateInputElm = document.createElement('input');
   dueDateInputElm.setAttribute('type', 'date');
   dueDateInputElm.className = 'form-input';
+  dueDateInputElm.addEventListener('input', _onCreateTaskFormInput('dueDate'));
+  dueDateInputElm.addEventListener('change', _onCreateTaskFormInput('dueDate'));
 
   const priorityHeadingElm = _createFormInputHeading({ textContent: 'Priority' });
   const priorityInputContainerElm = document.createElement('select');
@@ -178,6 +199,7 @@ function _getCreateTaskModal() {
     priorityOptionElm.textContent = level[0].toUpperCase() + level.slice(1);
     priorityInputContainerElm.appendChild(priorityOptionElm);
   });
+  priorityInputContainerElm.addEventListener('input', _onCreateTaskFormInput('priority'));
 
   const submitBtn = _createSubmitBtn('Create');
 
