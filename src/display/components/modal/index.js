@@ -106,9 +106,8 @@ function _onSubmitCreateProject(event) {
   event.preventDefault();
 
   const [ inputElm ] = event.target.elements;
-  const { value } = inputElm;
-
-  inputElm.value = '';
+  let { value } = inputElm;
+  value = value.trim();
 
   if (!value) {
     return;
@@ -123,7 +122,8 @@ function _onAddChecklistItem(event) {
   event.preventDefault();
 
   const { firstElementChild } = event.target;
-  const { value } = firstElementChild;
+  let { value } = firstElementChild;
+  value = value.trim();
 
   if (!value) {
     return;
@@ -137,7 +137,7 @@ function _onAddChecklistItem(event) {
 
 function _onCreateTaskFormInput(formDataPropName) {
   return ({ target: { value }}) => {
-    _createTaskFormData[formDataPropName] = value;
+    _createTaskFormData[formDataPropName] = value.trim();
     console.table(_createTaskFormData);
   }
 }
