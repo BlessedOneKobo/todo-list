@@ -38,11 +38,15 @@ a {
   cursor: pointer;
   padding: 0.5em 1em;
 }
-.btn:hover {
+.btn:hover:not(:disabled) {
   text-shadow: 0 0 1px #fff;
 }
-.btn:active {
+.btn:active:not(:disabled) {
   box-shadow: 1px 2px 4px #222 inset, -1px -2px 4px #222 inset;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .hidden {
@@ -134,10 +138,10 @@ a {
 .btn.create {
   background-color: #0e7d4e;
 }
-.btn.create:hover {
+.btn.create:hover:not(:disabled) {
   background-color: #135f3e;
 }
-.btn.create:active {
+.btn.create:active:not(:disabled) {
   background-color: #1f865a;
 }
 /* /section-header */

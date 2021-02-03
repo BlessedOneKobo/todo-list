@@ -24,11 +24,17 @@ on('toggleNavigation', ({ selected }) => {
   if (selected === 'projects') {
     createBtn.addEventListener('click', _initProjectCreate);
     createBtn.textContent = 'Create Project';
+    createBtn.disabled = false;
   } else {
     createBtn.removeEventListener('click', _initProjectCreate);
     createBtn.textContent = 'Create Task';
     createBtn.addEventListener('click', _initTaskCreate);
   }
+});
+
+on('taskListUpdated', (details) => {
+  createBtn.disabled = !details;
+  deleteBtn.disabled = !details;
 });
 
 function _initProjectCreate() {
