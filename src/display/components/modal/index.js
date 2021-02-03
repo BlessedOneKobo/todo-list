@@ -38,6 +38,8 @@ on('openCreateTaskModal', () => {
   _showModal();
 });
 
+// DOM Helpers
+
 function _clearModalContent() {
   const modalContentChildren = Array.from(_modalContent.children);
 
@@ -55,6 +57,20 @@ function _hideModal() {
   modal.classList.remove('show');
   modal.classList.add('hide');
 }
+
+function _updateChecklistDisplay(value) {
+  const checklistElm = _modalContent.querySelector('.checklist-display');
+
+  if (!checklistElm) {
+    return;
+  }
+
+  const checklistItemElm = document.createElement('li');
+  checklistItemElm.textContent = value;
+  checklistElm.appendChild(checklistItemElm);
+}
+
+// DOM Event Handlers
 
 function _onSubmitCreateTask(event) {
   event.preventDefault();
@@ -103,6 +119,31 @@ function _onSubmitCreateProject(event) {
   inputElm.value = '';
 }
 
+function _onAddChecklistItem(event) {
+  event.preventDefault();
+
+  const { firstElementChild } = event.target;
+  const { value } = firstElementChild;
+
+  if (!value) {
+    return;
+  }
+
+  firstElementChild.value = '';
+  _updateChecklistDisplay(value);
+  _createTaskFormData.checklist.push(value);
+  console.table(_createTaskFormData);
+}
+
+function _onCreateTaskFormInput(formDataPropName) {
+  return ({ target: { value }}) => {
+    _createTaskFormData[formDataPropName] = value;
+    console.table(_createTaskFormData);
+  }
+}
+
+// DOM Element Creation
+
 function _getBaseModal() {
   const frag = document.createDocumentFragment();
 
@@ -123,34 +164,6 @@ function _getBaseModal() {
   return { frag, modalHeading, form };
 }
 
-function _updateChecklistDisplay(value) {
-  const checklistElm = _modalContent.querySelector('.checklist-display');
-
-  if (!checklistElm) {
-    return;
-  }
-
-  const checklistItemElm = document.createElement('li');
-  checklistItemElm.textContent = value;
-  checklistElm.appendChild(checklistItemElm);
-}
-
-function _addChecklistItem(event) {
-  event.preventDefault();
-
-  const { firstElementChild } = event.target;
-  const { value } = firstElementChild;
-
-  if (!value) {
-    return;
-  }
-
-  firstElementChild.value = '';
-  _updateChecklistDisplay(value);
-  _createTaskFormData.checklist.push(value);
-  console.table(_createTaskFormData);
-}
-
 function _createFormInputHeading({ level = 'h4', textContent }) {
   const heading = document.createElement(level);
   heading.className = 'form-input-heading';
@@ -166,13 +179,6 @@ function _createSubmitBtn(btnText) {
   submitBtn.setAttribute('type', 'submit');
 
   return submitBtn;
-}
-
-function _onCreateTaskFormInput(formDataPropName) {
-  return ({ target: { value }}) => {
-    _createTaskFormData[formDataPropName] = value;
-    console.table(_createTaskFormData);
-  }
 }
 
 function _createFormGroupElm({ children }) {
@@ -232,7 +238,7 @@ function _getCreateTaskModal() {
   checklistItemInputElm.setAttribute('type', 'text');
   checklistItemInputElm.setAttribute('placeholder', 'Checklist Item');
   checklistForm.appendChild(checklistItemInputElm);
-  checklistForm.addEventListener('submit', _addChecklistItem);
+  checklistForm.addEventListener('submit', _onAddChecklistItem);
   checklistForm.className = 'form-group';
 
   const dueDateHeadingElm = _createFormInputHeading({ textContent: 'Due Date' });
