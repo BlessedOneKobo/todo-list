@@ -1,15 +1,21 @@
 import { emit } from '../../../../events';
 
-function _handleProjectViewLinkClick(event) {
+function _getProjectCardId(elm) {
+  return elm.parentElement.parentElement.getAttribute('id');
+}
+
+function _onProjectViewLinkClick(event) {
   event.preventDefault();
 
-  const projectCard = this.parentElement.parentElement;
-
-  emit('projectSelected', { idx: Number(projectCard.getAttribute('id')) });
+  emit('projectSelected', { idx: _getProjectCardId(event.target) });
   emit('toggleNavigation', { selected: 'tasks' });
 
   // No need for listener since element is out of reach
-  this.removeEventListener('click', _handleProjectViewLinkClick);
+  this.removeEventListener('click', _onProjectViewLinkClick);
+}
+
+function _onProjectDeleteBtnClick(event) {
+  emit('deleteProject', { idx: _getProjectCardId(event.target.parentElement) });
 }
 
 export function createProjectListContent({ projectList }) {
@@ -27,6 +33,7 @@ export function createProjectListContent({ projectList }) {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.className = 'btn delete';
+    deleteBtn.addEventListener('click', _onProjectDeleteBtnClick);
     const heading = document.createElement('h2');
     heading.className = 'task-name';
     heading.textContent = name;
@@ -35,7 +42,7 @@ export function createProjectListContent({ projectList }) {
     viewLink.setAttribute('href', '#');
     viewLink.textContent = 'View';
     viewLink.className = 'task-card-view';
-    viewLink.addEventListener('click', _handleProjectViewLinkClick);
+    viewLink.addEventListener('click', _onProjectViewLinkClick);
 
     [deleteBtn, heading].forEach(elm => cardHeaderGroup.appendChild(elm));
     [cardHeaderGroup, viewLink].forEach(elm => cardHeader.appendChild(elm));

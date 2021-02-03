@@ -67,8 +67,15 @@ on('toggleNavigation', ({ selected }) => {
 });
 
 on('projectSelected', ({ idx }) => {
+  idx = Number(idx);
   _selectedProject = projectList[idx];
   _selectedIdx = idx;
+});
+
+on('deleteProject', ({ idx }) => {
+  idx = Number(idx);
+  projectList.splice(idx, 1);
+  emit('projectListUpdated', { projectList });
 });
 
 on('deleteTask', ({ idx }) => {
