@@ -37,6 +37,7 @@ on('openCreateTaskModal', () => {
   _clearCreateTaskFormData();
   _modalContent.appendChild(_getCreateTaskModal());
   _showModal();
+  _modalContent.firstElementChild.scrollIntoView();
 });
 
 // DOM Helpers
