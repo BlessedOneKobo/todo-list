@@ -1,5 +1,16 @@
 import { emit } from '../../../../events';
 
+function _handleCheckboxItemClick() {
+  const checklistItemElm = this.parentElement;
+
+  if (!checklistItemElm) {
+    throw Error('_handleCheckboxItemClick: Could not find "checklist-item" element');
+  }
+
+  checklistItemElm.classList.toggle('completed');
+  checklistItemElm.classList.toggle('line-through-text');
+}
+
 function _handleTaskCheckboxClick() {
     const taskCardElm = this.parentElement.parentElement.parentElement;
     const taskNameElm = this.nextElementSibling;
@@ -88,9 +99,10 @@ function _getTaskListContent(projectName, taskList) {
     taskDescription.textContent = description;
 
     // Checklist
-    const checklistElementArray = checklist.map(checkItem => {
+    const checklistElementArray = checklist.map((checkItem, checkItemIdx) => {
       const checklistItem = document.createElement('li');
       checklistItem.className = 'checklist-item';
+      checklistItem.dataset.checkItemIndex = checkItemIdx;
 
       const checkboxText = document.createElement('span');
       checkboxText.className = 'checkbox-text';
@@ -100,6 +112,10 @@ function _getTaskListContent(projectName, taskList) {
       checkboxItem.className = 'checkbox-item';
       checkboxItem.disabled = done;
       checkboxItem.setAttribute('type', 'checkbox');
+      checkboxItem.addEventListener('click', _handleCheckboxItemClick);
+      checkboxItem.addEventListener('click', () => {
+        emit('checkboxItemToggle', {  taskIndex: taskIdx, checkItemIndex: checkItemIdx });
+      });
 
       const deleteBtn = document.createElement('a');
       deleteBtn.className = 'delete';

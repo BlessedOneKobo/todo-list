@@ -110,3 +110,8 @@ on('createTask', ({ newTask }) => {
   _selectedProject.items.unshift(newTask);
   _updateTaskListDisplay();
 });
+
+on('checkboxItemToggle', ({ checkboxItemIndex, taskIndex }) => {
+  const task = _selectedProject.items[taskIndex];
+  task.checklist[checkboxItemIndex] = !task.checklist[checkboxItemIndex];
+});
