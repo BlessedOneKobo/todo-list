@@ -107,7 +107,7 @@ on('createTask', ({ newTask }) => {
     return;
   }
 
-  _selectedProject.items.unshift(newTask);
+  _selectedProject.items.unshift({ ...newTask });
   _updateTaskListDisplay();
 });
 
