@@ -184,6 +184,7 @@ a {
 }
 
 .task-card-body {
+  overflow-wrap: anywhere;
   padding-left: 1em;
   padding-right: 1em;
 }

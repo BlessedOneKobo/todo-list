@@ -101,3 +101,12 @@ on('createProject', ({ projectName }) => {
   projectList.push({ name: projectName, items: [] });
   emit('projectListUpdated', { projectList });
 });
+
+on('createTask', ({ newTask }) => {
+  if (!_selectedProject) {
+    return;
+  }
+
+  _selectedProject.items.unshift(newTask);
+  _updateTaskListDisplay();
+});
