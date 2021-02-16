@@ -1,4 +1,12 @@
 import { emit, on } from '../../../events';
+
+import {
+  createFormInputHeadingElm,
+  createSubmitBtnElm,
+  createFormGroupElm,
+  createErrorMsgElm
+} from '../../utils';
+
 import './style.css';
 
 const modal = document.createElement('div');
@@ -41,6 +49,25 @@ on('openCreateTaskModal', () => {
 });
 
 // DOM Helpers
+function _createBaseModal() {
+  const frag = document.createDocumentFragment();
+
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '&times;';
+  closeBtn.className = 'btn delete close';
+  closeBtn.addEventListener('click', _hideModal);
+  frag.appendChild(closeBtn)
+
+  const modalHeading = document.createElement('h2');
+  modalHeading.className = 'heading';
+  frag.appendChild(modalHeading);
+
+  const form = document.createElement('form');
+  form.className = 'form create-form';
+  form.setAttribute('novalidate', '');
+
+  return { frag, modalHeading, form };
+}
 
 function _clearCreateTaskFormData() {
   _createTaskFormData.title = '';
@@ -157,83 +184,29 @@ function _onCreateTaskFormInput(formDataPropName) {
 }
 
 // DOM Element Creation
-
-function _getBaseModal() {
-  const frag = document.createDocumentFragment();
-
-  const closeBtn = document.createElement('button');
-  closeBtn.innerHTML = '&times;';
-  closeBtn.className = 'btn delete close';
-  closeBtn.addEventListener('click', _hideModal);
-  frag.appendChild(closeBtn)
-
-  const modalHeading = document.createElement('h2');
-  modalHeading.className = 'heading';
-  frag.appendChild(modalHeading);
-
-  const form = document.createElement('form');
-  form.className = 'form create-form';
-  form.setAttribute('novalidate', '');
-
-  return { frag, modalHeading, form };
-}
-
-function _createFormInputHeading({ level = 'h4', textContent }) {
-  const heading = document.createElement(level);
-  heading.className = 'form-input-heading';
-  heading.textContent = textContent;
-
-  return heading;
-}
-
-function _createSubmitBtn(btnText) {
-  const submitBtn = document.createElement('button');
-  submitBtn.className = 'btn create';
-  submitBtn.textContent = btnText;
-  submitBtn.setAttribute('type', 'submit');
-
-  return submitBtn;
-}
-
-function _createFormGroupElm({ children }) {
-  const formGroupElm = document.createElement('div');
-  formGroupElm.className = 'form-group';
-
-  children.forEach(childElm => formGroupElm.appendChild(childElm));
-
-  return formGroupElm;
-}
-
-function _getErrorMsgElm(propName) {
-  const errorMsgElm = document.createElement('div');
-  errorMsgElm.className = 'form-error ' + propName;
-
-  return errorMsgElm;
-}
-
 function _getCreateTaskModal() {
-  const { frag, modalHeading, form } = _getBaseModal();
+  const { frag, modalHeading, form } = _createBaseModal();
 
   modalHeading.textContent = 'Create Task';
   form.addEventListener('submit', _onSubmitCreateTask);
 
-  const taskNameHeadingElm = _createFormInputHeading({ textContent: 'Task Name' });
+  const taskNameHeadingElm = createFormInputHeadingElm({ textContent: 'Task Name' });
   const taskNameInputElm = document.createElement('input');
   taskNameInputElm.setAttribute('type', 'text');
   taskNameInputElm.className = 'form-input title';
   taskNameInputElm.addEventListener('input', _onCreateTaskFormInput('title'));
-  const taskNameErrorMsgElm = _getErrorMsgElm('title');
-  const taskNameGroupElm = _createFormGroupElm({
+  const taskNameErrorMsgElm = createErrorMsgElm('title');
+  const taskNameGroupElm = createFormGroupElm({
     children: [ taskNameHeadingElm, taskNameInputElm, taskNameErrorMsgElm ]
   });
 
-  const taskDescriptionHeadingElm = _createFormInputHeading({ textContent: 'Description' });
+  const taskDescriptionHeadingElm = createFormInputHeadingElm({ textContent: 'Description' });
   const taskDescriptionInputElm = document.createElement('textarea');
   taskDescriptionInputElm.setAttribute('rows', '8');
   taskDescriptionInputElm.className = 'form-input description';
   taskDescriptionInputElm.addEventListener('input', _onCreateTaskFormInput('description'));
-  const taskDescriptionErrorMsgElm = _getErrorMsgElm('description');
-  const taskDescriptionGroupElm = _createFormGroupElm({
+  const taskDescriptionErrorMsgElm = createErrorMsgElm('description');
+  const taskDescriptionGroupElm = createFormGroupElm({
     children: [
       taskDescriptionHeadingElm,
       taskDescriptionInputElm,
@@ -241,7 +214,7 @@ function _getCreateTaskModal() {
     ]
   });
 
-  const checklistDisplayHeading = _createFormInputHeading({ textContent: 'Checklist' });
+  const checklistDisplayHeading = createFormInputHeadingElm({ textContent: 'Checklist' });
 
   const checklistDisplay = document.createElement('ul');
   checklistDisplay.className = 'checklist-display'
@@ -255,18 +228,18 @@ function _getCreateTaskModal() {
   checklistForm.addEventListener('submit', _onAddChecklistItem);
   checklistForm.className = 'form-group';
 
-  const dueDateHeadingElm = _createFormInputHeading({ textContent: 'Due Date' });
+  const dueDateHeadingElm = createFormInputHeadingElm({ textContent: 'Due Date' });
   const dueDateInputElm = document.createElement('input');
   dueDateInputElm.setAttribute('type', 'date');
   dueDateInputElm.className = 'form-input dueDate';
   dueDateInputElm.addEventListener('input', _onCreateTaskFormInput('dueDate'));
   dueDateInputElm.addEventListener('change', _onCreateTaskFormInput('dueDate'));
-  const dueDateErrorMsgElm = _getErrorMsgElm('dueDate');
-  const dueDateGroupElm = _createFormGroupElm({
+  const dueDateErrorMsgElm = createErrorMsgElm('dueDate');
+  const dueDateGroupElm = createFormGroupElm({
     children: [ dueDateHeadingElm, dueDateInputElm, dueDateErrorMsgElm ]
   });
 
-  const priorityHeadingElm = _createFormInputHeading({ textContent: 'Priority' });
+  const priorityHeadingElm = createFormInputHeadingElm({ textContent: 'Priority' });
   const prioritySelectInputElm = document.createElement('select');
   prioritySelectInputElm.className = 'form-input priority';
   prioritySelectInputElm.setAttribute('name', 'priority');
@@ -277,12 +250,12 @@ function _getCreateTaskModal() {
     prioritySelectInputElm.appendChild(priorityOptionElm);
   });
   prioritySelectInputElm.addEventListener('input', _onCreateTaskFormInput('priority'));
-  const prioritySelectErrorElm = _getErrorMsgElm('priority');
-  const priorityGroupElm = _createFormGroupElm({
+  const prioritySelectErrorElm = createErrorMsgElm('priority');
+  const priorityGroupElm = createFormGroupElm({
     children: [ priorityHeadingElm, prioritySelectInputElm, prioritySelectErrorElm ]
   });
 
-  const submitBtn = _createSubmitBtn('Create');
+  const submitBtn = createSubmitBtnElm('Create');
 
   [
     taskNameGroupElm,
@@ -301,20 +274,20 @@ function _getCreateTaskModal() {
 }
 
 function _getCreateProjectModal() {
-  const { frag, modalHeading, form } = _getBaseModal();
+  const { frag, modalHeading, form } = _createBaseModal();
 
   modalHeading.textContent = 'Create Project';
   form.addEventListener('submit', _onSubmitCreateProject);
 
-  const projectNameHeadingElm = _createFormInputHeading({ textContent: 'Project Name ' });
+  const projectNameHeadingElm = createFormInputHeadingElm({ textContent: 'Project Name ' });
   const projectNameInputElm = document.createElement('input');
   projectNameInputElm.setAttribute('type', 'text');
   projectNameInputElm.className = 'form-input';
-  const projectNameGroup = _createFormGroupElm({
+  const projectNameGroup = createFormGroupElm({
     children: [ projectNameHeadingElm, projectNameInputElm ]
   })
 
-  const submitBtn = _createSubmitBtn('Create');
+  const submitBtn = createSubmitBtnElm('Create');
 
   form.appendChild(projectNameGroup);
   form.appendChild(submitBtn);
