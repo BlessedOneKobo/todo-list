@@ -1,21 +1,18 @@
 import { emit } from '../../../../events';
 
-function _getProjectCardId(elm) {
-  return elm.parentElement.parentElement.getAttribute('id');
+function _onProjectViewLinkClick(idx) {
+  return (event) => {
+    event.preventDefault();
+
+    emit('projectSelected', { idx });
+    emit('toggleNavigation', { selected: 'tasks' });
+  };
 }
 
-function _onProjectViewLinkClick(event) {
-  event.preventDefault();
-
-  emit('projectSelected', { idx: _getProjectCardId(event.target) });
-  emit('toggleNavigation', { selected: 'tasks' });
-
-  // No need for listener since element is out of reach
-  this.removeEventListener('click', _onProjectViewLinkClick);
-}
-
-function _onProjectDeleteBtnClick(event) {
-  emit('deleteProject', { idx: _getProjectCardId(event.target.parentElement) });
+function _onProjectDeleteBtnClick(idx) {
+  return () => {
+    emit('deleteProject', { idx });
+  };
 }
 
 export function createProjectListContent({ projectList }) {
@@ -33,16 +30,20 @@ export function createProjectListContent({ projectList }) {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.className = 'btn delete';
-    deleteBtn.addEventListener('click', _onProjectDeleteBtnClick);
+    deleteBtn.addEventListener('click', _onProjectDeleteBtnClick(idx));
     const heading = document.createElement('h2');
     heading.className = 'task-name';
-    heading.textContent = name;
+    const headingLink = document.createElement('a');
+    headingLink.setAttribute('href', '#');
+    headingLink.textContent = name;
+    headingLink.addEventListener('click', _onProjectViewLinkClick(idx));
+    heading.appendChild(headingLink);
 
     const viewLink = document.createElement('a');
     viewLink.setAttribute('href', '#');
     viewLink.textContent = 'View';
     viewLink.className = 'task-card-view';
-    viewLink.addEventListener('click', _onProjectViewLinkClick);
+    viewLink.addEventListener('click', _onProjectViewLinkClick(idx));
 
     [deleteBtn, heading].forEach(elm => cardHeaderGroup.appendChild(elm));
     [cardHeaderGroup, viewLink].forEach(elm => cardHeader.appendChild(elm));
