@@ -1,50 +1,8 @@
 import { emit, on } from '../events';
 
+let projectList = [];
 let _selectedProject = null;
 let _selectedIdx = -1;
-
-const projectList = [
-  {
-    name: 'General',
-    items: [
-      {
-        title: 'Task Name Is Really Long Though',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.`,
-        dueDate: '16/11/2020',
-        priority: 'Urgent',
-        checklist: [
-          { text: 'Item 1', done: false },
-          { text: 'Item 2', done: false },
-          { text: 'Item 3', done: false },
-        ],
-        done: true,
-      },
-      {
-        title: 'Something Else',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.`,
-        dueDate: '19/5/2020',
-        priority: 'Important',
-        checklist: [
-          { text: 'Item 1', done: false },
-          { text: 'Item 2', done: false },
-        ],
-        done: false,
-      },
-    ],
-  },
-];
 
 function _updateTaskListDisplay() {
   if (!_selectedProject) {
@@ -56,7 +14,10 @@ function _updateTaskListDisplay() {
   emit('taskListUpdated', { projectName, taskList });
 }
 
-emit('projectListUpdated', { projectList });
+on('loadProjectList', ({ list }) => {
+  projectList = list;
+  emit('projectListUpdated', { projectList });
+});
 
 on('toggleNavigation', ({ selected }) => {
   if (selected === 'projects') {
@@ -76,11 +37,13 @@ on('deleteProject', ({ idx }) => {
   idx = Number(idx);
   projectList.splice(idx, 1);
   emit('projectListUpdated', { projectList });
+  emit('saveProjectList', { projectList });
 });
 
 on('deleteTask', ({ idx }) => {
   _selectedProject.items.splice(idx, 1);
   _updateTaskListDisplay();
+  emit('saveProjectList', { projectList });
 });
 
 on('deleteCompletedTasks', () => {
@@ -90,16 +53,19 @@ on('deleteCompletedTasks', () => {
 
   _selectedProject.items = _selectedProject.items.filter(x => !x.done);
   _updateTaskListDisplay();
+  emit('saveProjectList', { projectList });
 })
 
 on('toggleTaskDoneStatus', ({ taskIdx }) => {
   const task = _selectedProject.items[taskIdx];
   task.done = !task.done;
+  emit('saveProjectList', { projectList });
 });
 
 on('createProject', ({ projectName }) => {
   projectList.push({ name: projectName, items: [] });
   emit('projectListUpdated', { projectList });
+  emit('saveProjectList', { projectList });
 });
 
 on('createTask', ({ newTask }) => {
@@ -109,9 +75,11 @@ on('createTask', ({ newTask }) => {
 
   _selectedProject.items.unshift({ ...newTask });
   _updateTaskListDisplay();
+  emit('saveProjectList', { projectList });
 });
 
-on('checkboxItemToggle', ({ checkboxItemIndex, taskIndex }) => {
-  const task = _selectedProject.items[taskIndex];
-  task.checklist[checkboxItemIndex] = !task.checklist[checkboxItemIndex];
+on('checkboxItemToggle', ({ checkItemIndex, taskIndex }) => {
+  const checklist = _selectedProject.items[taskIndex].checklist;
+  checklist[checkItemIndex].done = !checklist[checkItemIndex].done;
+  emit('saveProjectList', { projectList });
 });

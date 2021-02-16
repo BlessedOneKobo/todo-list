@@ -51,8 +51,6 @@ function _handleTaskCardToggle(event) {
   } else {
     this.textContent = 'More';
   }
-
-  console.log('_handleTaskCardToggle');
 }
 
 function _getTaskListContent(projectName, taskList) {
@@ -116,6 +114,12 @@ function _getTaskListContent(projectName, taskList) {
       checkboxItem.addEventListener('click', () => {
         emit('checkboxItemToggle', {  taskIndex: taskIdx, checkItemIndex: checkItemIdx });
       });
+
+      if (checkItem.done) {
+        checklistItem.classList.add('completed');
+        checklistItem.classList.add('line-through-text');
+        checkboxItem.checked = true;
+      }
 
       const deleteBtn = document.createElement('a');
       deleteBtn.className = 'delete';
