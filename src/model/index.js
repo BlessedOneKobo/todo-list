@@ -2,7 +2,6 @@ import { emit, on } from '../events';
 
 let projectList = [];
 let _selectedProject = null;
-let _selectedIdx = -1;
 
 function _updateTaskListDisplay() {
   if (!_selectedProject) {
@@ -30,7 +29,6 @@ on('toggleNavigation', ({ selected }) => {
 on('projectSelected', ({ idx }) => {
   idx = Number(idx);
   _selectedProject = projectList[idx];
-  _selectedIdx = idx;
 });
 
 on('deleteProject', ({ idx }) => {
@@ -51,10 +49,10 @@ on('deleteCompletedTasks', () => {
     return;
   }
 
-  _selectedProject.items = _selectedProject.items.filter(x => !x.done);
+  _selectedProject.items = _selectedProject.items.filter((x) => !x.done);
   _updateTaskListDisplay();
   emit('saveProjectList', { projectList });
-})
+});
 
 on('toggleTaskDoneStatus', ({ taskIdx }) => {
   const task = _selectedProject.items[taskIdx];

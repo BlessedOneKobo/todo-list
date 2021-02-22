@@ -1,4 +1,4 @@
-import { emit, on } from '../../../../events';
+import { on } from '../../../../events';
 
 import { createProjectListContent } from './projects';
 import { createTaskListContent } from './tasks';
@@ -8,8 +8,8 @@ import './style.css';
 let sectionBody = document.createElement('div');
 sectionBody.className = 'section-body';
 
-on('projectListUpdated', args => render('projectList', args));
-on('taskListUpdated', args => render('taskList', args));
+on('projectListUpdated', (args) => render('projectList', args));
+on('taskListUpdated', (args) => render('taskList', args));
 
 function render(name, args) {
   const parent = sectionBody.parentElement;
@@ -30,7 +30,7 @@ function render(name, args) {
   }
 
   if (Array.isArray(newChildren)) {
-    return newChildren.forEach(child => sectionBody.appendChild(child));
+    return newChildren.forEach((child) => sectionBody.appendChild(child));
   }
 
   return sectionBody.appendChild(newChildren);

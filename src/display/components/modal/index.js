@@ -1,4 +1,4 @@
-import { emit, on } from '../../../events';
+import { on } from '../../../events';
 
 import { getCreateProjectModal } from './project';
 import { getCreateTaskModal } from './task';
@@ -6,7 +6,7 @@ import { getCreateTaskModal } from './task';
 import './style.css';
 
 const modal = document.createElement('div');
-modal.className = 'modal hide'
+modal.className = 'modal hide';
 
 let _modalContent = document.createElement('div');
 _modalContent.className = 'modal-content';
@@ -18,14 +18,14 @@ modal.addEventListener('click', (event) => {
   const { target } = event;
 
   if (target.classList.contains('show')) {
-    _hideModal()
+    _hideModal();
   }
 });
 
 on('openCreateProjectModal', () => {
   _clearModalContent();
   _modalContent.appendChild(getCreateProjectModal());
-  _showModal()
+  _showModal();
 });
 
 on('openCreateTaskModal', () => {
@@ -46,7 +46,7 @@ on('hideModal', () => {
 function _clearModalContent() {
   const modalContentChildren = Array.from(_modalContent.children);
 
-  modalContentChildren.forEach(childElm => {
+  modalContentChildren.forEach((childElm) => {
     _modalContent.removeChild(childElm);
   });
 }
@@ -68,7 +68,7 @@ export function createBaseModal() {
   closeBtn.innerHTML = '&times;';
   closeBtn.className = 'btn delete close';
   closeBtn.addEventListener('click', _hideModal);
-  frag.appendChild(closeBtn)
+  frag.appendChild(closeBtn);
 
   const modalHeading = document.createElement('h2');
   modalHeading.className = 'heading';

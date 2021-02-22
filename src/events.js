@@ -12,7 +12,7 @@ export function emit(name, ...args) {
     return;
   }
 
-  selectedEvent.forEach(handler => handler(...args));
+  selectedEvent.forEach((handler) => handler(...args));
 }
 
 export function removeEvent(name) {
